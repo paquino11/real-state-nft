@@ -1,9 +1,0 @@
-run tests, folder of tests are in test/Escrow.js, to test the Escrow SC
-npx hardhat test
-
-
-deploy SC on a local blockchain
-npx hardhat node
-cahnge scripts/deploy.js file to deplopy SC on blockchain
-
-npx hardhat run scripts/deploy.js --network localhost
