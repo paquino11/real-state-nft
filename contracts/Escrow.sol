@@ -16,6 +16,11 @@ contract Escrow {
     address public inspector;
     address public lender;
 
+    modifier onlySeller() {
+        require(msg.sender == seller, "Only seller can call this method");
+        _;
+    }
+
     //key is the nftid and value is boolean if its listed or not
     mapping(uint256 => bool) public isListed;
     mapping(uint256 => uint256) public purchasePrice;
@@ -31,7 +36,7 @@ contract Escrow {
 
     // the NFT with nftID will pass from the guy who call this func to the creator of this SC
     // transfer NFT from seller to this contract
-    function list(uint256 _nftID, address _buyer, uint256 _purchasePrice, uint256 _escrowAmount) public {
+    function list(uint256 _nftID, address _buyer, uint256 _purchasePrice, uint256 _escrowAmount) public payable onlySeller{
         IERC721(nftAddress).transferFrom(msg.sender, address(this), _nftID);
         isListed[_nftID] = true;
         purchasePrice[_nftID] = _purchasePrice;
